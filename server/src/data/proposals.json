@@ -1,0 +1,42 @@
+[
+  {
+    "id": "prop-001",
+    "title": "Decentralized Identity System",
+    "description": "A system to allow users to manage their digital identities securely using blockchain.",
+    "createdBy": "user-001",
+    "status": "pending",
+    "votes": [
+      {
+        "id": "vote-001",
+        "voterAddress": "0xABC123...",
+        "voteChoice": "yes",
+        "txHash": "0xTXHASH1"
+      }
+    ],
+    "aiSummary": "Proposal to create a decentralized ID system on-chain.",
+    "createdAt": "2025-06-26T12:00:00Z"
+  },
+  {
+    "id": "prop-002",
+    "title": "Open Source Contribution Grants",
+    "description": "Offer grants to developers contributing to OSS tools used in Web3.",
+    "createdBy": "user-002",
+    "status": "approved",
+    "votes": [
+      {
+        "id": "vote-002",
+        "voterAddress": "0xDEF456...",
+        "voteChoice": "yes",
+        "txHash": "0xTXHASH2"
+      },
+      {
+        "id": "vote-003",
+        "voterAddress": "0xGHI789...",
+        "voteChoice": "no",
+        "txHash": "0xTXHASH3"
+      }
+    ],
+    "aiSummary": "Proposal to fund OSS devs in the Web3 ecosystem.",
+    "createdAt": "2025-06-25T15:30:00Z"
+  }
+]

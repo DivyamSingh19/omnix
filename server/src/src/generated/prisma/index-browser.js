@@ -127,6 +127,24 @@ exports.Prisma.UserScalarFieldEnum = {
   phantom_wallet: 'phantom_wallet'
 };
 
+exports.Prisma.ProposalScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  aiSummary: 'aiSummary',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VoteScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  voterAddress: 'voterAddress',
+  voteChoice: 'voteChoice',
+  txHash: 'txHash'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -139,7 +157,9 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Proposal: 'Proposal',
+  Vote: 'Vote'
 };
 
 /**
