@@ -4,7 +4,6 @@ import {
   getAllProposals,
   getProposalById,
   updateProposalStatus,
-  generateProposalSummary,
   addVoteToProposal,
 } from "../controllers/proposal";
 
@@ -15,7 +14,6 @@ proposalRoute.get('/',getAllProposals);
 proposalRoute.get('/:id', getProposalById);
 proposalRoute.post('/create',createProposal);
 proposalRoute.post('/:id/update-status', updateProposalStatus);
-proposalRoute.post('/:id/summary', generateProposalSummary);
 proposalRoute.post('/vote', addVoteToProposal);
 
 
