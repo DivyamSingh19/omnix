@@ -42,3 +42,25 @@ model Vote {
   voteChoice   String
   txHash       String
 }
+
+model Grant {
+  id         String   @id @default(uuid())
+  proposalId String
+  applicant  String
+  goal       String
+  amount     Float
+  score      Float
+  status     String
+  createdAt  DateTime @default(now())
+}
+
+model Gig {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  bounty       Float
+  status       String
+  matchedAgent String?
+  postedBy     String
+  createdAt    DateTime @default(now())
+}

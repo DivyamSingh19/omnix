@@ -9,6 +9,9 @@ const getAllProposals = async (c: Context) => {
         votes: true,
         createdBy: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return c.json({
@@ -62,7 +65,7 @@ const getProposalById = async (c: Context) => {
 
 const createProposal = async (c: Context) => {
   try {
-    // assuming the user is logged in 
+    // assuming the user is logged in
     const { title, description, createdById } = await c.req.json();
 
     if (!title || !description || !createdById) {
@@ -74,7 +77,7 @@ const createProposal = async (c: Context) => {
         title,
         description,
         createdById,
-        status: "pending", 
+        status: "pending",
         aiSummary: "AI summary placeholder",
       },
     });
@@ -95,90 +98,90 @@ const createProposal = async (c: Context) => {
     );
   }
 };
-  
 
 const updateProposalStatus = async (c: Context) => {
-    try {
-      const id = c.req.param("id");
+  try {
+    const id = c.req.param("id");
 
-      const proposal = await prisma.proposal.findUnique({ where: { id } });
+    const proposal = await prisma.proposal.findUnique({ where: { id } });
 
-      if (!proposal) {
-        return c.json({ error: "Proposal not found" }, 404);
-      }
-
-      let newStatus = proposal.status;
-      if (proposal.status === "pending") newStatus = "approved";
-      else if (proposal.status === "approved") newStatus = "completed";
-
-      const updated = await prisma.proposal.update({
-        where: { id },
-        data: { status: newStatus },
-      });
-
-      return c.json({ success: true, data: updated });
-    } catch (error) {
-      return c.json(
-        { error: "Error updating status", details: String(error) },
-        500
-      );
+    if (!proposal) {
+      return c.json({ error: "Proposal not found" }, 404);
     }
+    // just test logic not the actual thing
+    // pending,approved,completed
+    let newStatus = proposal.status;
+    if (proposal.status === "pending") newStatus = "approved";
+    else if (proposal.status === "approved") newStatus = "completed";
+
+    const updated = await prisma.proposal.update({
+      where: { id },
+      data: { status: newStatus },
+    });
+
+    return c.json({ success: true, data: updated });
+  } catch (error) {
+    return c.json(
+      { error: "Error updating status", details: String(error) },
+      500
+    );
+  }
 };
 
 const addVoteToProposal = async (c: Context) => {
-    try {
-        const { proposalId, voterAddress, voteChoice, txHash } = await c.req.json();
-    
-        const existingVote = await prisma.vote.findFirst({
-          where: { proposalId, voterAddress },
-        });
-    
-        if (existingVote) {
-          return c.json({ error: "You have already voted." }, 400);
-        }
-    
-        const vote = await prisma.vote.create({
-          data: {
-            proposalId,
-            voterAddress,
-            voteChoice,
-            txHash,
-          },
-        });
-    
-        return c.json({ success: true, data: vote });
-      } catch (error) {
-        return c.json({ error: "Error casting vote", details: String(error) }, 500);
-      }
-    };
+  try {
+    const { proposalId, voterAddress, voteChoice, txHash } = await c.req.json();
+
+    const existingVote = await prisma.vote.findFirst({
+      where: { proposalId, voterAddress },
+    });
+
+    if (existingVote) {
+      return c.json({ error: "You have already voted." }, 400);
+    }
+
+    const vote = await prisma.vote.create({
+      data: {
+        proposalId,
+        voterAddress,
+        voteChoice,
+        txHash,
+      },
+    });
+
+    return c.json({ success: true, data: vote });
+  } catch (error) {
+    return c.json({ error: "Error casting vote", details: String(error) }, 500);
+  }
+};
 
 const generateProposalSummary = async (c: Context) => {
-    try {
-      const id = c.req.param("id");
-      const proposal = await prisma.proposal.findUnique({ where: { id } });
+  try {
+    const id = c.req.param("id");
+    const proposal = await prisma.proposal.findUnique({ where: { id } });
 
-      if (!proposal) {
-        return c.json({ error: "Proposal not found" }, 404);
-      }
+    if (!proposal) {
+      return c.json({ error: "Proposal not found" }, 404);
+    }
 
-      const prompt = `Summarize the following proposal: 
+    const prompt = `Summarize the following proposal: 
         Title: ${proposal.title}
         Description: ${proposal.description}`;
 
-      const summary = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+    const summary = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
 
-      const updatedProposal = await prisma.proposal.update({
-        where: { id },
-        data: { aiSummary: summary },
-      });
+    const updatedProposal = await prisma.proposal.update({
+      where: { id },
+      data: { aiSummary: summary },
+    });
 
-      return c.json({ success: true, data: updatedProposal });
-    } catch (error) {
-      return c.json(
-        { error: "Error generating summary", details: String(error) },
-        500
-      );
-    }
+    return c.json({ success: true, data: updatedProposal });
+  } catch (error) {
+    return c.json(
+      { error: "Error generating summary", details: String(error) },
+      500
+    );
+  }
 };
 
 export {
@@ -189,5 +192,3 @@ export {
   addVoteToProposal,
   generateProposalSummary,
 };
-
-

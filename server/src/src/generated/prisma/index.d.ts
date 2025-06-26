@@ -28,6 +28,16 @@ export type Proposal = $Result.DefaultSelection<Prisma.$ProposalPayload>
  * 
  */
 export type Vote = $Result.DefaultSelection<Prisma.$VotePayload>
+/**
+ * Model Grant
+ * 
+ */
+export type Grant = $Result.DefaultSelection<Prisma.$GrantPayload>
+/**
+ * Model Gig
+ * 
+ */
+export type Gig = $Result.DefaultSelection<Prisma.$GigPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +193,26 @@ export class PrismaClient<
     * ```
     */
   get vote(): Prisma.VoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.grant`: Exposes CRUD operations for the **Grant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Grants
+    * const grants = await prisma.grant.findMany()
+    * ```
+    */
+  get grant(): Prisma.GrantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gig`: Exposes CRUD operations for the **Gig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Gigs
+    * const gigs = await prisma.gig.findMany()
+    * ```
+    */
+  get gig(): Prisma.GigDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +655,9 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Proposal: 'Proposal',
-    Vote: 'Vote'
+    Vote: 'Vote',
+    Grant: 'Grant',
+    Gig: 'Gig'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "proposal" | "vote"
+      modelProps: "user" | "proposal" | "vote" | "grant" | "gig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +902,154 @@ export namespace Prisma {
           }
         }
       }
+      Grant: {
+        payload: Prisma.$GrantPayload<ExtArgs>
+        fields: Prisma.GrantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GrantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GrantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          findFirst: {
+            args: Prisma.GrantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GrantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          findMany: {
+            args: Prisma.GrantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>[]
+          }
+          create: {
+            args: Prisma.GrantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          createMany: {
+            args: Prisma.GrantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GrantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>[]
+          }
+          delete: {
+            args: Prisma.GrantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          update: {
+            args: Prisma.GrantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          deleteMany: {
+            args: Prisma.GrantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GrantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GrantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>[]
+          }
+          upsert: {
+            args: Prisma.GrantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrantPayload>
+          }
+          aggregate: {
+            args: Prisma.GrantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGrant>
+          }
+          groupBy: {
+            args: Prisma.GrantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GrantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GrantCountArgs<ExtArgs>
+            result: $Utils.Optional<GrantCountAggregateOutputType> | number
+          }
+        }
+      }
+      Gig: {
+        payload: Prisma.$GigPayload<ExtArgs>
+        fields: Prisma.GigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          findFirst: {
+            args: Prisma.GigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          findMany: {
+            args: Prisma.GigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>[]
+          }
+          create: {
+            args: Prisma.GigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          createMany: {
+            args: Prisma.GigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>[]
+          }
+          delete: {
+            args: Prisma.GigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          update: {
+            args: Prisma.GigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          deleteMany: {
+            args: Prisma.GigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>[]
+          }
+          upsert: {
+            args: Prisma.GigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GigPayload>
+          }
+          aggregate: {
+            args: Prisma.GigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGig>
+          }
+          groupBy: {
+            args: Prisma.GigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GigCountArgs<ExtArgs>
+            result: $Utils.Optional<GigCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1137,8 @@ export namespace Prisma {
     user?: UserOmit
     proposal?: ProposalOmit
     vote?: VoteOmit
+    grant?: GrantOmit
+    gig?: GigOmit
   }
 
   /* Types for Logging */
@@ -4342,6 +4524,2146 @@ export namespace Prisma {
 
 
   /**
+   * Model Grant
+   */
+
+  export type AggregateGrant = {
+    _count: GrantCountAggregateOutputType | null
+    _avg: GrantAvgAggregateOutputType | null
+    _sum: GrantSumAggregateOutputType | null
+    _min: GrantMinAggregateOutputType | null
+    _max: GrantMaxAggregateOutputType | null
+  }
+
+  export type GrantAvgAggregateOutputType = {
+    amount: number | null
+    score: number | null
+  }
+
+  export type GrantSumAggregateOutputType = {
+    amount: number | null
+    score: number | null
+  }
+
+  export type GrantMinAggregateOutputType = {
+    id: string | null
+    proposalId: string | null
+    applicant: string | null
+    goal: string | null
+    amount: number | null
+    score: number | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type GrantMaxAggregateOutputType = {
+    id: string | null
+    proposalId: string | null
+    applicant: string | null
+    goal: string | null
+    amount: number | null
+    score: number | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type GrantCountAggregateOutputType = {
+    id: number
+    proposalId: number
+    applicant: number
+    goal: number
+    amount: number
+    score: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GrantAvgAggregateInputType = {
+    amount?: true
+    score?: true
+  }
+
+  export type GrantSumAggregateInputType = {
+    amount?: true
+    score?: true
+  }
+
+  export type GrantMinAggregateInputType = {
+    id?: true
+    proposalId?: true
+    applicant?: true
+    goal?: true
+    amount?: true
+    score?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type GrantMaxAggregateInputType = {
+    id?: true
+    proposalId?: true
+    applicant?: true
+    goal?: true
+    amount?: true
+    score?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type GrantCountAggregateInputType = {
+    id?: true
+    proposalId?: true
+    applicant?: true
+    goal?: true
+    amount?: true
+    score?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GrantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Grant to aggregate.
+     */
+    where?: GrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grants to fetch.
+     */
+    orderBy?: GrantOrderByWithRelationInput | GrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Grants
+    **/
+    _count?: true | GrantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GrantAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GrantSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GrantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GrantMaxAggregateInputType
+  }
+
+  export type GetGrantAggregateType<T extends GrantAggregateArgs> = {
+        [P in keyof T & keyof AggregateGrant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGrant[P]>
+      : GetScalarType<T[P], AggregateGrant[P]>
+  }
+
+
+
+
+  export type GrantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrantWhereInput
+    orderBy?: GrantOrderByWithAggregationInput | GrantOrderByWithAggregationInput[]
+    by: GrantScalarFieldEnum[] | GrantScalarFieldEnum
+    having?: GrantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GrantCountAggregateInputType | true
+    _avg?: GrantAvgAggregateInputType
+    _sum?: GrantSumAggregateInputType
+    _min?: GrantMinAggregateInputType
+    _max?: GrantMaxAggregateInputType
+  }
+
+  export type GrantGroupByOutputType = {
+    id: string
+    proposalId: string
+    applicant: string
+    goal: string
+    amount: number
+    score: number
+    status: string
+    createdAt: Date
+    _count: GrantCountAggregateOutputType | null
+    _avg: GrantAvgAggregateOutputType | null
+    _sum: GrantSumAggregateOutputType | null
+    _min: GrantMinAggregateOutputType | null
+    _max: GrantMaxAggregateOutputType | null
+  }
+
+  type GetGrantGroupByPayload<T extends GrantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GrantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GrantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GrantGroupByOutputType[P]>
+            : GetScalarType<T[P], GrantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GrantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposalId?: boolean
+    applicant?: boolean
+    goal?: boolean
+    amount?: boolean
+    score?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["grant"]>
+
+  export type GrantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposalId?: boolean
+    applicant?: boolean
+    goal?: boolean
+    amount?: boolean
+    score?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["grant"]>
+
+  export type GrantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposalId?: boolean
+    applicant?: boolean
+    goal?: boolean
+    amount?: boolean
+    score?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["grant"]>
+
+  export type GrantSelectScalar = {
+    id?: boolean
+    proposalId?: boolean
+    applicant?: boolean
+    goal?: boolean
+    amount?: boolean
+    score?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type GrantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "proposalId" | "applicant" | "goal" | "amount" | "score" | "status" | "createdAt", ExtArgs["result"]["grant"]>
+
+  export type $GrantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Grant"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      proposalId: string
+      applicant: string
+      goal: string
+      amount: number
+      score: number
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["grant"]>
+    composites: {}
+  }
+
+  type GrantGetPayload<S extends boolean | null | undefined | GrantDefaultArgs> = $Result.GetResult<Prisma.$GrantPayload, S>
+
+  type GrantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GrantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GrantCountAggregateInputType | true
+    }
+
+  export interface GrantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Grant'], meta: { name: 'Grant' } }
+    /**
+     * Find zero or one Grant that matches the filter.
+     * @param {GrantFindUniqueArgs} args - Arguments to find a Grant
+     * @example
+     * // Get one Grant
+     * const grant = await prisma.grant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GrantFindUniqueArgs>(args: SelectSubset<T, GrantFindUniqueArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Grant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GrantFindUniqueOrThrowArgs} args - Arguments to find a Grant
+     * @example
+     * // Get one Grant
+     * const grant = await prisma.grant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GrantFindUniqueOrThrowArgs>(args: SelectSubset<T, GrantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Grant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantFindFirstArgs} args - Arguments to find a Grant
+     * @example
+     * // Get one Grant
+     * const grant = await prisma.grant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GrantFindFirstArgs>(args?: SelectSubset<T, GrantFindFirstArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Grant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantFindFirstOrThrowArgs} args - Arguments to find a Grant
+     * @example
+     * // Get one Grant
+     * const grant = await prisma.grant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GrantFindFirstOrThrowArgs>(args?: SelectSubset<T, GrantFindFirstOrThrowArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Grants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Grants
+     * const grants = await prisma.grant.findMany()
+     * 
+     * // Get first 10 Grants
+     * const grants = await prisma.grant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const grantWithIdOnly = await prisma.grant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GrantFindManyArgs>(args?: SelectSubset<T, GrantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Grant.
+     * @param {GrantCreateArgs} args - Arguments to create a Grant.
+     * @example
+     * // Create one Grant
+     * const Grant = await prisma.grant.create({
+     *   data: {
+     *     // ... data to create a Grant
+     *   }
+     * })
+     * 
+     */
+    create<T extends GrantCreateArgs>(args: SelectSubset<T, GrantCreateArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Grants.
+     * @param {GrantCreateManyArgs} args - Arguments to create many Grants.
+     * @example
+     * // Create many Grants
+     * const grant = await prisma.grant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GrantCreateManyArgs>(args?: SelectSubset<T, GrantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Grants and returns the data saved in the database.
+     * @param {GrantCreateManyAndReturnArgs} args - Arguments to create many Grants.
+     * @example
+     * // Create many Grants
+     * const grant = await prisma.grant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Grants and only return the `id`
+     * const grantWithIdOnly = await prisma.grant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GrantCreateManyAndReturnArgs>(args?: SelectSubset<T, GrantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Grant.
+     * @param {GrantDeleteArgs} args - Arguments to delete one Grant.
+     * @example
+     * // Delete one Grant
+     * const Grant = await prisma.grant.delete({
+     *   where: {
+     *     // ... filter to delete one Grant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GrantDeleteArgs>(args: SelectSubset<T, GrantDeleteArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Grant.
+     * @param {GrantUpdateArgs} args - Arguments to update one Grant.
+     * @example
+     * // Update one Grant
+     * const grant = await prisma.grant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GrantUpdateArgs>(args: SelectSubset<T, GrantUpdateArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Grants.
+     * @param {GrantDeleteManyArgs} args - Arguments to filter Grants to delete.
+     * @example
+     * // Delete a few Grants
+     * const { count } = await prisma.grant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GrantDeleteManyArgs>(args?: SelectSubset<T, GrantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Grants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Grants
+     * const grant = await prisma.grant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GrantUpdateManyArgs>(args: SelectSubset<T, GrantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Grants and returns the data updated in the database.
+     * @param {GrantUpdateManyAndReturnArgs} args - Arguments to update many Grants.
+     * @example
+     * // Update many Grants
+     * const grant = await prisma.grant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Grants and only return the `id`
+     * const grantWithIdOnly = await prisma.grant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GrantUpdateManyAndReturnArgs>(args: SelectSubset<T, GrantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Grant.
+     * @param {GrantUpsertArgs} args - Arguments to update or create a Grant.
+     * @example
+     * // Update or create a Grant
+     * const grant = await prisma.grant.upsert({
+     *   create: {
+     *     // ... data to create a Grant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Grant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GrantUpsertArgs>(args: SelectSubset<T, GrantUpsertArgs<ExtArgs>>): Prisma__GrantClient<$Result.GetResult<Prisma.$GrantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Grants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantCountArgs} args - Arguments to filter Grants to count.
+     * @example
+     * // Count the number of Grants
+     * const count = await prisma.grant.count({
+     *   where: {
+     *     // ... the filter for the Grants we want to count
+     *   }
+     * })
+    **/
+    count<T extends GrantCountArgs>(
+      args?: Subset<T, GrantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GrantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Grant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GrantAggregateArgs>(args: Subset<T, GrantAggregateArgs>): Prisma.PrismaPromise<GetGrantAggregateType<T>>
+
+    /**
+     * Group by Grant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GrantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GrantGroupByArgs['orderBy'] }
+        : { orderBy?: GrantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GrantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGrantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Grant model
+   */
+  readonly fields: GrantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Grant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GrantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Grant model
+   */
+  interface GrantFieldRefs {
+    readonly id: FieldRef<"Grant", 'String'>
+    readonly proposalId: FieldRef<"Grant", 'String'>
+    readonly applicant: FieldRef<"Grant", 'String'>
+    readonly goal: FieldRef<"Grant", 'String'>
+    readonly amount: FieldRef<"Grant", 'Float'>
+    readonly score: FieldRef<"Grant", 'Float'>
+    readonly status: FieldRef<"Grant", 'String'>
+    readonly createdAt: FieldRef<"Grant", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Grant findUnique
+   */
+  export type GrantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter, which Grant to fetch.
+     */
+    where: GrantWhereUniqueInput
+  }
+
+  /**
+   * Grant findUniqueOrThrow
+   */
+  export type GrantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter, which Grant to fetch.
+     */
+    where: GrantWhereUniqueInput
+  }
+
+  /**
+   * Grant findFirst
+   */
+  export type GrantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter, which Grant to fetch.
+     */
+    where?: GrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grants to fetch.
+     */
+    orderBy?: GrantOrderByWithRelationInput | GrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Grants.
+     */
+    cursor?: GrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Grants.
+     */
+    distinct?: GrantScalarFieldEnum | GrantScalarFieldEnum[]
+  }
+
+  /**
+   * Grant findFirstOrThrow
+   */
+  export type GrantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter, which Grant to fetch.
+     */
+    where?: GrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grants to fetch.
+     */
+    orderBy?: GrantOrderByWithRelationInput | GrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Grants.
+     */
+    cursor?: GrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Grants.
+     */
+    distinct?: GrantScalarFieldEnum | GrantScalarFieldEnum[]
+  }
+
+  /**
+   * Grant findMany
+   */
+  export type GrantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter, which Grants to fetch.
+     */
+    where?: GrantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Grants to fetch.
+     */
+    orderBy?: GrantOrderByWithRelationInput | GrantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Grants.
+     */
+    cursor?: GrantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Grants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Grants.
+     */
+    skip?: number
+    distinct?: GrantScalarFieldEnum | GrantScalarFieldEnum[]
+  }
+
+  /**
+   * Grant create
+   */
+  export type GrantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Grant.
+     */
+    data: XOR<GrantCreateInput, GrantUncheckedCreateInput>
+  }
+
+  /**
+   * Grant createMany
+   */
+  export type GrantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Grants.
+     */
+    data: GrantCreateManyInput | GrantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Grant createManyAndReturn
+   */
+  export type GrantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * The data used to create many Grants.
+     */
+    data: GrantCreateManyInput | GrantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Grant update
+   */
+  export type GrantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Grant.
+     */
+    data: XOR<GrantUpdateInput, GrantUncheckedUpdateInput>
+    /**
+     * Choose, which Grant to update.
+     */
+    where: GrantWhereUniqueInput
+  }
+
+  /**
+   * Grant updateMany
+   */
+  export type GrantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Grants.
+     */
+    data: XOR<GrantUpdateManyMutationInput, GrantUncheckedUpdateManyInput>
+    /**
+     * Filter which Grants to update
+     */
+    where?: GrantWhereInput
+    /**
+     * Limit how many Grants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Grant updateManyAndReturn
+   */
+  export type GrantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * The data used to update Grants.
+     */
+    data: XOR<GrantUpdateManyMutationInput, GrantUncheckedUpdateManyInput>
+    /**
+     * Filter which Grants to update
+     */
+    where?: GrantWhereInput
+    /**
+     * Limit how many Grants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Grant upsert
+   */
+  export type GrantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Grant to update in case it exists.
+     */
+    where: GrantWhereUniqueInput
+    /**
+     * In case the Grant found by the `where` argument doesn't exist, create a new Grant with this data.
+     */
+    create: XOR<GrantCreateInput, GrantUncheckedCreateInput>
+    /**
+     * In case the Grant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GrantUpdateInput, GrantUncheckedUpdateInput>
+  }
+
+  /**
+   * Grant delete
+   */
+  export type GrantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+    /**
+     * Filter which Grant to delete.
+     */
+    where: GrantWhereUniqueInput
+  }
+
+  /**
+   * Grant deleteMany
+   */
+  export type GrantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Grants to delete
+     */
+    where?: GrantWhereInput
+    /**
+     * Limit how many Grants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Grant without action
+   */
+  export type GrantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grant
+     */
+    select?: GrantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grant
+     */
+    omit?: GrantOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Gig
+   */
+
+  export type AggregateGig = {
+    _count: GigCountAggregateOutputType | null
+    _avg: GigAvgAggregateOutputType | null
+    _sum: GigSumAggregateOutputType | null
+    _min: GigMinAggregateOutputType | null
+    _max: GigMaxAggregateOutputType | null
+  }
+
+  export type GigAvgAggregateOutputType = {
+    bounty: number | null
+  }
+
+  export type GigSumAggregateOutputType = {
+    bounty: number | null
+  }
+
+  export type GigMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    bounty: number | null
+    status: string | null
+    matchedAgent: string | null
+    postedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type GigMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    bounty: number | null
+    status: string | null
+    matchedAgent: string | null
+    postedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type GigCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    bounty: number
+    status: number
+    matchedAgent: number
+    postedBy: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GigAvgAggregateInputType = {
+    bounty?: true
+  }
+
+  export type GigSumAggregateInputType = {
+    bounty?: true
+  }
+
+  export type GigMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bounty?: true
+    status?: true
+    matchedAgent?: true
+    postedBy?: true
+    createdAt?: true
+  }
+
+  export type GigMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bounty?: true
+    status?: true
+    matchedAgent?: true
+    postedBy?: true
+    createdAt?: true
+  }
+
+  export type GigCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bounty?: true
+    status?: true
+    matchedAgent?: true
+    postedBy?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Gig to aggregate.
+     */
+    where?: GigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Gigs to fetch.
+     */
+    orderBy?: GigOrderByWithRelationInput | GigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Gigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Gigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Gigs
+    **/
+    _count?: true | GigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GigAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GigSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GigMaxAggregateInputType
+  }
+
+  export type GetGigAggregateType<T extends GigAggregateArgs> = {
+        [P in keyof T & keyof AggregateGig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGig[P]>
+      : GetScalarType<T[P], AggregateGig[P]>
+  }
+
+
+
+
+  export type GigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GigWhereInput
+    orderBy?: GigOrderByWithAggregationInput | GigOrderByWithAggregationInput[]
+    by: GigScalarFieldEnum[] | GigScalarFieldEnum
+    having?: GigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GigCountAggregateInputType | true
+    _avg?: GigAvgAggregateInputType
+    _sum?: GigSumAggregateInputType
+    _min?: GigMinAggregateInputType
+    _max?: GigMaxAggregateInputType
+  }
+
+  export type GigGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    bounty: number
+    status: string
+    matchedAgent: string | null
+    postedBy: string
+    createdAt: Date
+    _count: GigCountAggregateOutputType | null
+    _avg: GigAvgAggregateOutputType | null
+    _sum: GigSumAggregateOutputType | null
+    _min: GigMinAggregateOutputType | null
+    _max: GigMaxAggregateOutputType | null
+  }
+
+  type GetGigGroupByPayload<T extends GigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GigGroupByOutputType[P]>
+            : GetScalarType<T[P], GigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bounty?: boolean
+    status?: boolean
+    matchedAgent?: boolean
+    postedBy?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gig"]>
+
+  export type GigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bounty?: boolean
+    status?: boolean
+    matchedAgent?: boolean
+    postedBy?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gig"]>
+
+  export type GigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bounty?: boolean
+    status?: boolean
+    matchedAgent?: boolean
+    postedBy?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["gig"]>
+
+  export type GigSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bounty?: boolean
+    status?: boolean
+    matchedAgent?: boolean
+    postedBy?: boolean
+    createdAt?: boolean
+  }
+
+  export type GigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "bounty" | "status" | "matchedAgent" | "postedBy" | "createdAt", ExtArgs["result"]["gig"]>
+
+  export type $GigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Gig"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      bounty: number
+      status: string
+      matchedAgent: string | null
+      postedBy: string
+      createdAt: Date
+    }, ExtArgs["result"]["gig"]>
+    composites: {}
+  }
+
+  type GigGetPayload<S extends boolean | null | undefined | GigDefaultArgs> = $Result.GetResult<Prisma.$GigPayload, S>
+
+  type GigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GigCountAggregateInputType | true
+    }
+
+  export interface GigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Gig'], meta: { name: 'Gig' } }
+    /**
+     * Find zero or one Gig that matches the filter.
+     * @param {GigFindUniqueArgs} args - Arguments to find a Gig
+     * @example
+     * // Get one Gig
+     * const gig = await prisma.gig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GigFindUniqueArgs>(args: SelectSubset<T, GigFindUniqueArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Gig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GigFindUniqueOrThrowArgs} args - Arguments to find a Gig
+     * @example
+     * // Get one Gig
+     * const gig = await prisma.gig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GigFindUniqueOrThrowArgs>(args: SelectSubset<T, GigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Gig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigFindFirstArgs} args - Arguments to find a Gig
+     * @example
+     * // Get one Gig
+     * const gig = await prisma.gig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GigFindFirstArgs>(args?: SelectSubset<T, GigFindFirstArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Gig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigFindFirstOrThrowArgs} args - Arguments to find a Gig
+     * @example
+     * // Get one Gig
+     * const gig = await prisma.gig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GigFindFirstOrThrowArgs>(args?: SelectSubset<T, GigFindFirstOrThrowArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Gigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Gigs
+     * const gigs = await prisma.gig.findMany()
+     * 
+     * // Get first 10 Gigs
+     * const gigs = await prisma.gig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gigWithIdOnly = await prisma.gig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GigFindManyArgs>(args?: SelectSubset<T, GigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Gig.
+     * @param {GigCreateArgs} args - Arguments to create a Gig.
+     * @example
+     * // Create one Gig
+     * const Gig = await prisma.gig.create({
+     *   data: {
+     *     // ... data to create a Gig
+     *   }
+     * })
+     * 
+     */
+    create<T extends GigCreateArgs>(args: SelectSubset<T, GigCreateArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Gigs.
+     * @param {GigCreateManyArgs} args - Arguments to create many Gigs.
+     * @example
+     * // Create many Gigs
+     * const gig = await prisma.gig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GigCreateManyArgs>(args?: SelectSubset<T, GigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Gigs and returns the data saved in the database.
+     * @param {GigCreateManyAndReturnArgs} args - Arguments to create many Gigs.
+     * @example
+     * // Create many Gigs
+     * const gig = await prisma.gig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Gigs and only return the `id`
+     * const gigWithIdOnly = await prisma.gig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GigCreateManyAndReturnArgs>(args?: SelectSubset<T, GigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Gig.
+     * @param {GigDeleteArgs} args - Arguments to delete one Gig.
+     * @example
+     * // Delete one Gig
+     * const Gig = await prisma.gig.delete({
+     *   where: {
+     *     // ... filter to delete one Gig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GigDeleteArgs>(args: SelectSubset<T, GigDeleteArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Gig.
+     * @param {GigUpdateArgs} args - Arguments to update one Gig.
+     * @example
+     * // Update one Gig
+     * const gig = await prisma.gig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GigUpdateArgs>(args: SelectSubset<T, GigUpdateArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Gigs.
+     * @param {GigDeleteManyArgs} args - Arguments to filter Gigs to delete.
+     * @example
+     * // Delete a few Gigs
+     * const { count } = await prisma.gig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GigDeleteManyArgs>(args?: SelectSubset<T, GigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Gigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Gigs
+     * const gig = await prisma.gig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GigUpdateManyArgs>(args: SelectSubset<T, GigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Gigs and returns the data updated in the database.
+     * @param {GigUpdateManyAndReturnArgs} args - Arguments to update many Gigs.
+     * @example
+     * // Update many Gigs
+     * const gig = await prisma.gig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Gigs and only return the `id`
+     * const gigWithIdOnly = await prisma.gig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GigUpdateManyAndReturnArgs>(args: SelectSubset<T, GigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Gig.
+     * @param {GigUpsertArgs} args - Arguments to update or create a Gig.
+     * @example
+     * // Update or create a Gig
+     * const gig = await prisma.gig.upsert({
+     *   create: {
+     *     // ... data to create a Gig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Gig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GigUpsertArgs>(args: SelectSubset<T, GigUpsertArgs<ExtArgs>>): Prisma__GigClient<$Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Gigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigCountArgs} args - Arguments to filter Gigs to count.
+     * @example
+     * // Count the number of Gigs
+     * const count = await prisma.gig.count({
+     *   where: {
+     *     // ... the filter for the Gigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends GigCountArgs>(
+      args?: Subset<T, GigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Gig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GigAggregateArgs>(args: Subset<T, GigAggregateArgs>): Prisma.PrismaPromise<GetGigAggregateType<T>>
+
+    /**
+     * Group by Gig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GigGroupByArgs['orderBy'] }
+        : { orderBy?: GigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Gig model
+   */
+  readonly fields: GigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Gig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Gig model
+   */
+  interface GigFieldRefs {
+    readonly id: FieldRef<"Gig", 'String'>
+    readonly title: FieldRef<"Gig", 'String'>
+    readonly description: FieldRef<"Gig", 'String'>
+    readonly bounty: FieldRef<"Gig", 'Float'>
+    readonly status: FieldRef<"Gig", 'String'>
+    readonly matchedAgent: FieldRef<"Gig", 'String'>
+    readonly postedBy: FieldRef<"Gig", 'String'>
+    readonly createdAt: FieldRef<"Gig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Gig findUnique
+   */
+  export type GigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter, which Gig to fetch.
+     */
+    where: GigWhereUniqueInput
+  }
+
+  /**
+   * Gig findUniqueOrThrow
+   */
+  export type GigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter, which Gig to fetch.
+     */
+    where: GigWhereUniqueInput
+  }
+
+  /**
+   * Gig findFirst
+   */
+  export type GigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter, which Gig to fetch.
+     */
+    where?: GigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Gigs to fetch.
+     */
+    orderBy?: GigOrderByWithRelationInput | GigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Gigs.
+     */
+    cursor?: GigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Gigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Gigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Gigs.
+     */
+    distinct?: GigScalarFieldEnum | GigScalarFieldEnum[]
+  }
+
+  /**
+   * Gig findFirstOrThrow
+   */
+  export type GigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter, which Gig to fetch.
+     */
+    where?: GigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Gigs to fetch.
+     */
+    orderBy?: GigOrderByWithRelationInput | GigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Gigs.
+     */
+    cursor?: GigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Gigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Gigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Gigs.
+     */
+    distinct?: GigScalarFieldEnum | GigScalarFieldEnum[]
+  }
+
+  /**
+   * Gig findMany
+   */
+  export type GigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter, which Gigs to fetch.
+     */
+    where?: GigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Gigs to fetch.
+     */
+    orderBy?: GigOrderByWithRelationInput | GigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Gigs.
+     */
+    cursor?: GigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Gigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Gigs.
+     */
+    skip?: number
+    distinct?: GigScalarFieldEnum | GigScalarFieldEnum[]
+  }
+
+  /**
+   * Gig create
+   */
+  export type GigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Gig.
+     */
+    data: XOR<GigCreateInput, GigUncheckedCreateInput>
+  }
+
+  /**
+   * Gig createMany
+   */
+  export type GigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Gigs.
+     */
+    data: GigCreateManyInput | GigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Gig createManyAndReturn
+   */
+  export type GigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * The data used to create many Gigs.
+     */
+    data: GigCreateManyInput | GigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Gig update
+   */
+  export type GigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Gig.
+     */
+    data: XOR<GigUpdateInput, GigUncheckedUpdateInput>
+    /**
+     * Choose, which Gig to update.
+     */
+    where: GigWhereUniqueInput
+  }
+
+  /**
+   * Gig updateMany
+   */
+  export type GigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Gigs.
+     */
+    data: XOR<GigUpdateManyMutationInput, GigUncheckedUpdateManyInput>
+    /**
+     * Filter which Gigs to update
+     */
+    where?: GigWhereInput
+    /**
+     * Limit how many Gigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Gig updateManyAndReturn
+   */
+  export type GigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * The data used to update Gigs.
+     */
+    data: XOR<GigUpdateManyMutationInput, GigUncheckedUpdateManyInput>
+    /**
+     * Filter which Gigs to update
+     */
+    where?: GigWhereInput
+    /**
+     * Limit how many Gigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Gig upsert
+   */
+  export type GigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Gig to update in case it exists.
+     */
+    where: GigWhereUniqueInput
+    /**
+     * In case the Gig found by the `where` argument doesn't exist, create a new Gig with this data.
+     */
+    create: XOR<GigCreateInput, GigUncheckedCreateInput>
+    /**
+     * In case the Gig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GigUpdateInput, GigUncheckedUpdateInput>
+  }
+
+  /**
+   * Gig delete
+   */
+  export type GigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+    /**
+     * Filter which Gig to delete.
+     */
+    where: GigWhereUniqueInput
+  }
+
+  /**
+   * Gig deleteMany
+   */
+  export type GigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Gigs to delete
+     */
+    where?: GigWhereInput
+    /**
+     * Limit how many Gigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Gig without action
+   */
+  export type GigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gig
+     */
+    select?: GigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gig
+     */
+    omit?: GigOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4389,6 +6711,34 @@ export namespace Prisma {
   export type VoteScalarFieldEnum = (typeof VoteScalarFieldEnum)[keyof typeof VoteScalarFieldEnum]
 
 
+  export const GrantScalarFieldEnum: {
+    id: 'id',
+    proposalId: 'proposalId',
+    applicant: 'applicant',
+    goal: 'goal',
+    amount: 'amount',
+    score: 'score',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type GrantScalarFieldEnum = (typeof GrantScalarFieldEnum)[keyof typeof GrantScalarFieldEnum]
+
+
+  export const GigScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    bounty: 'bounty',
+    status: 'status',
+    matchedAgent: 'matchedAgent',
+    postedBy: 'postedBy',
+    createdAt: 'createdAt'
+  };
+
+  export type GigScalarFieldEnum = (typeof GigScalarFieldEnum)[keyof typeof GigScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -4403,6 +6753,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -4435,6 +6793,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -4628,6 +7000,144 @@ export namespace Prisma {
     txHash?: StringWithAggregatesFilter<"Vote"> | string
   }
 
+  export type GrantWhereInput = {
+    AND?: GrantWhereInput | GrantWhereInput[]
+    OR?: GrantWhereInput[]
+    NOT?: GrantWhereInput | GrantWhereInput[]
+    id?: StringFilter<"Grant"> | string
+    proposalId?: StringFilter<"Grant"> | string
+    applicant?: StringFilter<"Grant"> | string
+    goal?: StringFilter<"Grant"> | string
+    amount?: FloatFilter<"Grant"> | number
+    score?: FloatFilter<"Grant"> | number
+    status?: StringFilter<"Grant"> | string
+    createdAt?: DateTimeFilter<"Grant"> | Date | string
+  }
+
+  export type GrantOrderByWithRelationInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    applicant?: SortOrder
+    goal?: SortOrder
+    amount?: SortOrder
+    score?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GrantWhereInput | GrantWhereInput[]
+    OR?: GrantWhereInput[]
+    NOT?: GrantWhereInput | GrantWhereInput[]
+    proposalId?: StringFilter<"Grant"> | string
+    applicant?: StringFilter<"Grant"> | string
+    goal?: StringFilter<"Grant"> | string
+    amount?: FloatFilter<"Grant"> | number
+    score?: FloatFilter<"Grant"> | number
+    status?: StringFilter<"Grant"> | string
+    createdAt?: DateTimeFilter<"Grant"> | Date | string
+  }, "id">
+
+  export type GrantOrderByWithAggregationInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    applicant?: SortOrder
+    goal?: SortOrder
+    amount?: SortOrder
+    score?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: GrantCountOrderByAggregateInput
+    _avg?: GrantAvgOrderByAggregateInput
+    _max?: GrantMaxOrderByAggregateInput
+    _min?: GrantMinOrderByAggregateInput
+    _sum?: GrantSumOrderByAggregateInput
+  }
+
+  export type GrantScalarWhereWithAggregatesInput = {
+    AND?: GrantScalarWhereWithAggregatesInput | GrantScalarWhereWithAggregatesInput[]
+    OR?: GrantScalarWhereWithAggregatesInput[]
+    NOT?: GrantScalarWhereWithAggregatesInput | GrantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Grant"> | string
+    proposalId?: StringWithAggregatesFilter<"Grant"> | string
+    applicant?: StringWithAggregatesFilter<"Grant"> | string
+    goal?: StringWithAggregatesFilter<"Grant"> | string
+    amount?: FloatWithAggregatesFilter<"Grant"> | number
+    score?: FloatWithAggregatesFilter<"Grant"> | number
+    status?: StringWithAggregatesFilter<"Grant"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Grant"> | Date | string
+  }
+
+  export type GigWhereInput = {
+    AND?: GigWhereInput | GigWhereInput[]
+    OR?: GigWhereInput[]
+    NOT?: GigWhereInput | GigWhereInput[]
+    id?: StringFilter<"Gig"> | string
+    title?: StringFilter<"Gig"> | string
+    description?: StringFilter<"Gig"> | string
+    bounty?: FloatFilter<"Gig"> | number
+    status?: StringFilter<"Gig"> | string
+    matchedAgent?: StringNullableFilter<"Gig"> | string | null
+    postedBy?: StringFilter<"Gig"> | string
+    createdAt?: DateTimeFilter<"Gig"> | Date | string
+  }
+
+  export type GigOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bounty?: SortOrder
+    status?: SortOrder
+    matchedAgent?: SortOrderInput | SortOrder
+    postedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GigWhereInput | GigWhereInput[]
+    OR?: GigWhereInput[]
+    NOT?: GigWhereInput | GigWhereInput[]
+    title?: StringFilter<"Gig"> | string
+    description?: StringFilter<"Gig"> | string
+    bounty?: FloatFilter<"Gig"> | number
+    status?: StringFilter<"Gig"> | string
+    matchedAgent?: StringNullableFilter<"Gig"> | string | null
+    postedBy?: StringFilter<"Gig"> | string
+    createdAt?: DateTimeFilter<"Gig"> | Date | string
+  }, "id">
+
+  export type GigOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bounty?: SortOrder
+    status?: SortOrder
+    matchedAgent?: SortOrderInput | SortOrder
+    postedBy?: SortOrder
+    createdAt?: SortOrder
+    _count?: GigCountOrderByAggregateInput
+    _avg?: GigAvgOrderByAggregateInput
+    _max?: GigMaxOrderByAggregateInput
+    _min?: GigMinOrderByAggregateInput
+    _sum?: GigSumOrderByAggregateInput
+  }
+
+  export type GigScalarWhereWithAggregatesInput = {
+    AND?: GigScalarWhereWithAggregatesInput | GigScalarWhereWithAggregatesInput[]
+    OR?: GigScalarWhereWithAggregatesInput[]
+    NOT?: GigScalarWhereWithAggregatesInput | GigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Gig"> | string
+    title?: StringWithAggregatesFilter<"Gig"> | string
+    description?: StringWithAggregatesFilter<"Gig"> | string
+    bounty?: FloatWithAggregatesFilter<"Gig"> | number
+    status?: StringWithAggregatesFilter<"Gig"> | string
+    matchedAgent?: StringNullableWithAggregatesFilter<"Gig"> | string | null
+    postedBy?: StringWithAggregatesFilter<"Gig"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Gig"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -4809,6 +7319,160 @@ export namespace Prisma {
     txHash?: StringFieldUpdateOperationsInput | string
   }
 
+  export type GrantCreateInput = {
+    id?: string
+    proposalId: string
+    applicant: string
+    goal: string
+    amount: number
+    score: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type GrantUncheckedCreateInput = {
+    id?: string
+    proposalId: string
+    applicant: string
+    goal: string
+    amount: number
+    score: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type GrantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    applicant?: StringFieldUpdateOperationsInput | string
+    goal?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    score?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    applicant?: StringFieldUpdateOperationsInput | string
+    goal?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    score?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrantCreateManyInput = {
+    id?: string
+    proposalId: string
+    applicant: string
+    goal: string
+    amount: number
+    score: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type GrantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    applicant?: StringFieldUpdateOperationsInput | string
+    goal?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    score?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    applicant?: StringFieldUpdateOperationsInput | string
+    goal?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    score?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GigCreateInput = {
+    id?: string
+    title: string
+    description: string
+    bounty: number
+    status: string
+    matchedAgent?: string | null
+    postedBy: string
+    createdAt?: Date | string
+  }
+
+  export type GigUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    bounty: number
+    status: string
+    matchedAgent?: string | null
+    postedBy: string
+    createdAt?: Date | string
+  }
+
+  export type GigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bounty?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    postedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bounty?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    postedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GigCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    bounty: number
+    status: string
+    matchedAgent?: string | null
+    postedBy: string
+    createdAt?: Date | string
+  }
+
+  export type GigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bounty?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    postedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bounty?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    matchedAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    postedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -4972,6 +7636,155 @@ export namespace Prisma {
     txHash?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type GrantCountOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    applicant?: SortOrder
+    goal?: SortOrder
+    amount?: SortOrder
+    score?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrantAvgOrderByAggregateInput = {
+    amount?: SortOrder
+    score?: SortOrder
+  }
+
+  export type GrantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    applicant?: SortOrder
+    goal?: SortOrder
+    amount?: SortOrder
+    score?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrantMinOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    applicant?: SortOrder
+    goal?: SortOrder
+    amount?: SortOrder
+    score?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GrantSumOrderByAggregateInput = {
+    amount?: SortOrder
+    score?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type GigCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bounty?: SortOrder
+    status?: SortOrder
+    matchedAgent?: SortOrder
+    postedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GigAvgOrderByAggregateInput = {
+    bounty?: SortOrder
+  }
+
+  export type GigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bounty?: SortOrder
+    status?: SortOrder
+    matchedAgent?: SortOrder
+    postedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GigMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bounty?: SortOrder
+    status?: SortOrder
+    matchedAgent?: SortOrder
+    postedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GigSumOrderByAggregateInput = {
+    bounty?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type ProposalCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<ProposalCreateWithoutCreatedByInput, ProposalUncheckedCreateWithoutCreatedByInput> | ProposalCreateWithoutCreatedByInput[] | ProposalUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: ProposalCreateOrConnectWithoutCreatedByInput | ProposalCreateOrConnectWithoutCreatedByInput[]
@@ -5092,6 +7905,18 @@ export namespace Prisma {
     update?: XOR<XOR<ProposalUpdateToOneWithWhereWithoutVotesInput, ProposalUpdateWithoutVotesInput>, ProposalUncheckedUpdateWithoutVotesInput>
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5157,6 +7982,75 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type ProposalCreateWithoutCreatedByInput = {
