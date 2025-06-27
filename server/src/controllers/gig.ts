@@ -1,5 +1,9 @@
 import { Context } from "hono";
-import prisma from "../utils/prisma";
+// import prisma from "../utils/prisma";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+
 
 const getAllGigs = async (c: Context) => {
   try {
@@ -76,7 +80,7 @@ const updateGigStatus = async (c: Context) => {
   }
 };
 
-export {getAllGigs,postGig,updateGigStatus}
+export { getAllGigs, postGig, updateGigStatus };
 // getAllGigs()
 // postGig(data)
 // matchAgentToGig(agentId, gigId) (skipping this since its a single agent system)
