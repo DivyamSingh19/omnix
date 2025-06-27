@@ -150,7 +150,7 @@ const generateStructuredProfile = (
   user: GitHubUser,
   repos: GitHubRepo[],
   events: GitHubEvent[],
-  contributionBreakdownByYear: Record<string, number>
+  contributionsByYearData: Record<string, number> 
 ) => {
   const joinDate = new Date(user.created_at).toISOString();
   const lastUpdate = new Date(user.updated_at).toISOString();
@@ -189,7 +189,6 @@ const generateStructuredProfile = (
       totalStars,
       totalForks,
       primaryLanguages: languages.slice(0, 5),
-      contributionBreakdownByYear: contributionBreakdownByYear,
     },
     topRepositories: originalRepos
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
@@ -235,5 +234,6 @@ const generateStructuredProfile = (
 
       return { date, repo, action };
     }),
+    contributionBreakdownByYear: contributionsByYearData,
   };
 };

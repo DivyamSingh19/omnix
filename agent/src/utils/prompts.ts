@@ -17,3 +17,36 @@ export const gigMatchPrompt = ({
   gigDesc,
 }: any) =>
   `Proposal Title: ${proposalTitle}. Description: ${proposalDesc}. Gig Title: ${gigTitle}. Description: ${gigDesc}. Is this a good fit? Reply with "match" or "no match".`;
+
+
+export const scoreProfile = ({
+  username,
+  contributionsByYear,
+}: {
+  username: string;
+  contributionsByYear: Record<string, number>;
+}): number => {
+  const years = Object.keys(contributionsByYear).sort(); 
+  const now = new Date().getFullYear();
+
+  let score = 0;
+  let totalWeighted = 0;
+  let totalContributions = 0;
+
+  for (const year of years) {
+    const yearNum = parseInt(year);
+    const contrib = contributionsByYear[year];
+    const weight = Math.max(1, 4 - (now - yearNum));
+    totalWeighted += contrib * weight;
+    totalContributions += contrib;
+  }
+
+  score = totalWeighted / 400;
+
+  const consistentYears = Object.values(contributionsByYear).filter(
+    (c) => c >= 300
+  ).length;
+  if (consistentYears >= 2) score += 1;
+
+  return Math.min(10, Math.round(score));
+};

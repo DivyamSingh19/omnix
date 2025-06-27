@@ -6,6 +6,7 @@ import {
   grantPrompt,
   gigMatchPrompt,
   summarizePrompt,
+  scoreProfile,
 } from "../utils/prompts";
 import { analyzeGitHubProfileViaAPI } from "../utils/github";
 import { cleanMarkdown } from "../utils/markdown";
@@ -183,7 +184,6 @@ const analyzeGithubProfile = async (c: Context) => {
     let profile;
 
     try {
-      const githubToken = c.env.GITHUB_TOKEN;
       profile = await analyzeGitHubProfileViaAPI(cleanUsername);
       console.log("Successfully analyzed profile using GitHub API");
     } catch (apiError: any) {
@@ -202,11 +202,17 @@ const analyzeGithubProfile = async (c: Context) => {
       );
     }
 
+    const scorepfp = scoreProfile({
+      username: profile.username,
+      contributionsByYear: profile.contributionBreakdownByYear,
+    });
+       
     return c.json({
       success: true,
       username: cleanUsername,
       contentLength: contentString.length,
-      profile, 
+      profile,
+      scorepfp, 
     });
   } catch (error: any) {
     console.error("GitHub profile analysis failed:", {
@@ -278,7 +284,6 @@ const analyzeGithubProfile = async (c: Context) => {
     );
   }
 };
-
 
 export {
   processProposal,
