@@ -7,6 +7,8 @@ import {
   gigMatchPrompt,
   summarizePrompt,
 } from "../utils/prompts";
+import { analyzeGitHubProfileViaAPI } from "../utils/github";
+import { cleanMarkdown } from "../utils/markdown";
 
 const processProposal = async (c: Context) => {
   try {
@@ -68,13 +70,12 @@ const summarizeProposal = async (c: Context) => {
 
 const recommendVote = async (c: Context) => {
   try {
-    const { title, description } = await c.req.json();
+    const { title, description, goal, amount } = await c.req.json();
 
-    if (!title || !description) {
+    if (!goal || !amount || !title || !description) {
       return c.json({ error: "Missing required fields" }, 400);
     }
-
-    const prompt = votePrompt({ title, description });
+    const prompt = votePrompt({ goal, amount, title, description });
 
     const recommendation = await getGeminiResponse(
       prompt,
@@ -154,7 +155,132 @@ const recommendGigMatch = async (c: Context) => {
     );
   }
 };
-  
+
+const analyzeGithubProfile = async (c: Context) => {
+  try {
+    const { username } = await c.req.json();
+
+    if (!username) {
+      return c.json({ error: "GitHub username is required" }, 400);
+    }
+
+    const cleanUsername = username.replace("@", "").trim();
+    if (
+      !/^[a-zA-Z0-9]([a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/.test(cleanUsername)
+    ) {
+      return c.json(
+        {
+          error: "Invalid GitHub username format",
+          details:
+            "Username can only contain alphanumeric characters and hyphens",
+        },
+        400
+      );
+    }
+
+    console.log(`Analyzing GitHub profile for: ${cleanUsername}`);
+
+    let markdown: string;
+
+    try {
+      const githubToken = c.env.GITHUB_TOKEN;
+      markdown = await analyzeGitHubProfileViaAPI(cleanUsername, githubToken);
+      console.log("Successfully analyzed profile using GitHub API");
+    } catch (apiError: any) {
+      console.log("GitHub API failed:", apiError.message);
+      throw apiError;
+    }
+
+    const cleanedMarkdown = cleanMarkdown(markdown);
+
+    if (!cleanedMarkdown || cleanedMarkdown.length < 50) {
+      return c.json(
+        {
+          error: "GitHub profile analysis incomplete",
+          details: "Profile content could not be retrieved or is too short",
+        },
+        422
+      );
+    }
+
+    return c.json({
+      success: true,
+      markdown: cleanedMarkdown,
+      username: cleanUsername,
+      contentLength: cleanedMarkdown.length,
+    });
+  } catch (error: any) {
+    console.error("GitHub profile analysis failed:", {
+      error: error.message,
+      stack: error.stack,
+    });
+
+    if (error.message.includes("not found")) {
+      return c.json(
+        {
+          success: false,
+          error: "GitHub user not found",
+          details: error.message,
+        },
+        404
+      );
+    }
+
+    if (error.message.includes("rate limit")) {
+      return c.json(
+        {
+          success: false,
+          error: "Rate limit exceeded",
+          details:
+            "GitHub API rate limit reached. Try again later or add a GitHub token.",
+        },
+        429
+      );
+    }
+
+    if (error.message.includes("too large")) {
+      return c.json(
+        { success: false, error: "Profile too large", details: error.message },
+        413
+      );
+    }
+
+    if (
+      error.message.includes("Invalid API key") ||
+      error.message.includes("configuration")
+    ) {
+      return c.json(
+        { success: false, error: "Service configuration error" },
+        500
+      );
+    }
+
+    if (error.message.includes("unavailable")) {
+      return c.json(
+        {
+          success: false,
+          error: "External service unavailable",
+          details: "Please try again later",
+        },
+        503
+      );
+    }
+
+    return c.json(
+      {
+        success: false,
+        error: "Failed to analyze GitHub profile",
+        details:
+          c.env.NODE_ENV === "development"
+            ? error.message
+            : "Internal server error",
+      },
+      500
+    );
+  }
+};
+
+
 
 export {
   processProposal,
@@ -162,6 +288,7 @@ export {
   recommendVote,
   recommendGrant,
   recommendGigMatch,
+  analyzeGithubProfile,
 };
 // processProposal
 // summarizeProposal
