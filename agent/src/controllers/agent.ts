@@ -180,20 +180,19 @@ const analyzeGithubProfile = async (c: Context) => {
 
     console.log(`Analyzing GitHub profile for: ${cleanUsername}`);
 
-    let markdown: string;
+    let profile;
 
     try {
       const githubToken = c.env.GITHUB_TOKEN;
-      markdown = await analyzeGitHubProfileViaAPI(cleanUsername, githubToken);
+      profile = await analyzeGitHubProfileViaAPI(cleanUsername);
       console.log("Successfully analyzed profile using GitHub API");
     } catch (apiError: any) {
       console.log("GitHub API failed:", apiError.message);
       throw apiError;
     }
 
-    const cleanedMarkdown = cleanMarkdown(markdown);
-
-    if (!cleanedMarkdown || cleanedMarkdown.length < 50) {
+    const contentString = JSON.stringify(profile);
+    if (!contentString || contentString.length < 50) {
       return c.json(
         {
           error: "GitHub profile analysis incomplete",
@@ -205,9 +204,9 @@ const analyzeGithubProfile = async (c: Context) => {
 
     return c.json({
       success: true,
-      markdown: cleanedMarkdown,
       username: cleanUsername,
-      contentLength: cleanedMarkdown.length,
+      contentLength: contentString.length,
+      profile, 
     });
   } catch (error: any) {
     console.error("GitHub profile analysis failed:", {
@@ -279,7 +278,6 @@ const analyzeGithubProfile = async (c: Context) => {
     );
   }
 };
-
 
 
 export {

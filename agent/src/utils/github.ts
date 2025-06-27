@@ -40,10 +40,13 @@ interface GitHubEvent {
   payload: any;
 }
 
+interface ContributionsResponse {
+  total: Record<string, number>;
+}
+
 export const analyzeGitHubProfileViaAPI = async (
   username: string,
-  githubToken?: string
-): Promise<string> => {
+): Promise<ReturnType<typeof generateStructuredProfile>> => {
   const cleanUsername = username.replace("@", "").trim();
 
   try {
@@ -54,9 +57,6 @@ export const analyzeGitHubProfileViaAPI = async (
       "User-Agent": "GitHub-Profile-Analyzer",
     };
 
-    if (githubToken) {
-      headers["Authorization"] = `token ${githubToken}`;
-    }
 
     const { data: user } = await axios.get<GitHubUser>(
       `https://api.github.com/users/${cleanUsername}`,
@@ -75,16 +75,27 @@ export const analyzeGitHubProfileViaAPI = async (
         { headers, timeout: 10000 }
       );
       recentActivity = events;
-    } catch (eventsError) {
-      console.log("Could not fetch recent activity (might be private)");
+    } catch (activityError: any) {
+      console.warn(
+        `Could not fetch recent activity for ${cleanUsername}: ${activityError.message} (might be private or API issue)`
+      );
     }
 
-    const markdown = generateMarkdownProfile(user, repos, recentActivity);
+    const contributionBreakdownByYear = await fetchContributions(
+      cleanUsername
+    );
+
+    const profile = generateStructuredProfile(
+      user,
+      repos,
+      recentActivity,
+      contributionBreakdownByYear
+    );
 
     console.log(
-      `Successfully generated GitHub profile analysis (${markdown.length} characters)`
+      `Successfully generated GitHub profile analysis for ${profile.username}`
     );
-    return markdown;
+    return profile;
   } catch (error: any) {
     console.error("GitHub API error:", error.message);
 
@@ -98,7 +109,7 @@ export const analyzeGitHubProfileViaAPI = async (
         ? new Date(parseInt(rateLimitReset) * 1000).toLocaleTimeString()
         : "unknown";
       throw new Error(
-        `GitHub API rate limit exceeded. Resets at ${resetTime}. Consider adding a GitHub token for higher limits.`
+        `GitHub API rate limit exceeded. Resets at ${resetTime}. Consider adding a GitHub token.`
       );
     }
 
@@ -112,15 +123,38 @@ export const analyzeGitHubProfileViaAPI = async (
   }
 };
 
-const generateMarkdownProfile = (
+const fetchContributions = async (
+  username: string
+): Promise<Record<string, number>> => {
+  try {
+    const { data } = await axios.get<ContributionsResponse>(
+      `https://github-contributions-api.jogruber.de/v4/${username}`
+    );
+
+    const yearWise: Record<string, number> = data?.total || {};
+    return yearWise;
+  } catch (err: any) {
+    console.error(
+      "Failed to fetch all-time contributions from jogruber API:",
+      err.message
+    );
+    if (axios.isAxiosError(err) && err.response) {
+      console.error("Jogruber API error response status:", err.response.status);
+      console.error("Jogruber API error response data:", err.response.data);
+    }
+    return {};
+  }
+};
+
+const generateStructuredProfile = (
   user: GitHubUser,
   repos: GitHubRepo[],
-  events: GitHubEvent[]
-): string => {
-  const joinDate = new Date(user.created_at).toLocaleDateString();
-  const lastUpdate = new Date(user.updated_at).toLocaleDateString();
+  events: GitHubEvent[],
+  contributionBreakdownByYear: Record<string, number>
+) => {
+  const joinDate = new Date(user.created_at).toISOString();
+  const lastUpdate = new Date(user.updated_at).toISOString();
 
- 
   const originalRepos = repos.filter((repo) => !repo.fork);
   const languages = [
     ...new Set(originalRepos.map((repo) => repo.language).filter(Boolean)),
@@ -135,123 +169,71 @@ const generateMarkdownProfile = (
     0
   );
 
-  const activitySummary = generateActivitySummary(events);
-
-  let markdown = `# ${user.name || user.login} (@${user.login})
-
-## Profile Overview
-- **GitHub Profile**: [${user.html_url}](${user.html_url})
-- **Member since**: ${joinDate}
-- **Last active**: ${lastUpdate}`;
-
-  if (user.bio) {
-    markdown += `\n- **Bio**: ${user.bio}`;
-  }
-
-  if (user.company) {
-    markdown += `\n- **Company**: ${user.company}`;
-  }
-
-  if (user.location) {
-    markdown += `\n- **Location**: ${user.location}`;
-  }
-
-  if (user.blog) {
-    markdown += `\n- **Website**: [${user.blog}](${
-      user.blog.startsWith("http") ? user.blog : `https://${user.blog}`
-    })`;
-  }
-
-  if (user.twitter_username) {
-    markdown += `\n- **Twitter**: [@${user.twitter_username}](https://twitter.com/${user.twitter_username})`;
-  }
-
-  markdown += `
-
-## GitHub Statistics
-- **Public Repositories**: ${user.public_repos}
-- **Public Gists**: ${user.public_gists}
-- **Followers**: ${user.followers}
-- **Following**: ${user.following}
-- **Total Stars Received**: ${totalStars}
-- **Total Forks**: ${totalForks}`;
-
-  if (languages.length > 0) {
-    markdown += `\n- **Primary Languages**: ${languages
-      .slice(0, 5)
-      .join(", ")}`;
-  }
-
-  if (originalRepos.length > 0) {
-    markdown += `\n\n## Top Repositories\n`;
-
-    originalRepos
+  return {
+    username: user.login,
+    name: user.name || user.login,
+    profileUrl: user.html_url,
+    avatarUrl: user.avatar_url,
+    bio: user.bio || "",
+    company: user.company || "",
+    location: user.location || "",
+    website: user.blog,
+    twitter: user.twitter_username,
+    memberSince: joinDate,
+    lastActive: lastUpdate,
+    stats: {
+      publicRepos: user.public_repos,
+      publicGists: user.public_gists,
+      followers: user.followers,
+      following: user.following,
+      totalStars,
+      totalForks,
+      primaryLanguages: languages.slice(0, 5),
+      contributionBreakdownByYear: contributionBreakdownByYear,
+    },
+    topRepositories: originalRepos
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
       .slice(0, 5)
-      .forEach((repo) => {
-        markdown += `\n### [${repo.name}](${repo.html_url})`;
-        if (repo.description) {
-          markdown += `\n${repo.description}`;
-        }
-        markdown += `\n- **Language**: ${repo.language || "N/A"}`;
-        markdown += `\n- **Stars**: ${repo.stargazers_count} | **Forks**: ${repo.forks_count}`;
-        if (repo.topics && repo.topics.length > 0) {
-          markdown += `\n- **Topics**: ${repo.topics.join(", ")}`;
-        }
-        markdown += `\n- **Last updated**: ${new Date(
-          repo.updated_at
-        ).toLocaleDateString()}\n`;
-      });
-  }
+      .map((repo) => ({
+        name: repo.name,
+        description: repo.description || "",
+        language: repo.language || "",
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        topics: repo.topics || [],
+        lastUpdated: new Date(repo.updated_at).toISOString(),
+        url: repo.html_url,
+      })),
+    recentActivity: events.slice(0, 5).map((event) => {
+      const date = new Date(event.created_at).toISOString();
+      const repo = event.repo.name;
 
-  if (activitySummary) {
-    markdown += `\n## Recent Activity\n${activitySummary}`;
-  }
+      let action = "";
+      switch (event.type) {
+        case "PushEvent":
+          const commitCount = event.payload.commits?.length || 1;
+          action = `Pushed ${commitCount} commit${commitCount > 1 ? "s" : ""}`;
+          break;
+        case "CreateEvent":
+          action = `Created ${event.payload.ref_type}`;
+          break;
+        case "IssuesEvent":
+          action = `${event.payload.action} issue`;
+          break;
+        case "PullRequestEvent":
+          action = `${event.payload.action} pull request`;
+          break;
+        case "ForkEvent":
+          action = `Forked`;
+          break;
+        case "WatchEvent":
+          action = `Starred`;
+          break;
+        default:
+          action = `${event.type.replace("Event", "")} activity`;
+      }
 
-  return markdown;
-};
-
-const generateActivitySummary = (events: GitHubEvent[]): string => {
-  if (events.length === 0) {
-    return "No recent public activity available.";
-  }
-
-  let summary = "";
-  const recentEvents = events.slice(0, 5);
-
-  recentEvents.forEach((event) => {
-    const date = new Date(event.created_at).toLocaleDateString();
-    const repoName = event.repo.name;
-
-    switch (event.type) {
-      case "PushEvent":
-        const commitCount = event.payload.commits?.length || 1;
-        summary += `- **${date}**: Pushed ${commitCount} commit${
-          commitCount > 1 ? "s" : ""
-        } to ${repoName}\n`;
-        break;
-      case "CreateEvent":
-        summary += `- **${date}**: Created ${event.payload.ref_type} in ${repoName}\n`;
-        break;
-      case "IssuesEvent":
-        summary += `- **${date}**: ${event.payload.action} issue in ${repoName}\n`;
-        break;
-      case "PullRequestEvent":
-        summary += `- **${date}**: ${event.payload.action} pull request in ${repoName}\n`;
-        break;
-      case "ForkEvent":
-        summary += `- **${date}**: Forked ${repoName}\n`;
-        break;
-      case "WatchEvent":
-        summary += `- **${date}**: Starred ${repoName}\n`;
-        break;
-      default:
-        summary += `- **${date}**: ${event.type.replace(
-          "Event",
-          ""
-        )} activity in ${repoName}\n`;
-    }
-  });
-
-  return summary;
+      return { date, repo, action };
+    }),
+  };
 };
