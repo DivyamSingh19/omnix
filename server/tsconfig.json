@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types":["hono"],
     "strict": true,
     "skipLibCheck": true,
     "lib": [
