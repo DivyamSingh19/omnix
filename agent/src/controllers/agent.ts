@@ -7,6 +7,7 @@ import {
   analyzeProposalPrompt,
   scoreProfile,
   rewriteprompt,
+  detectSpamPrompt,
 } from "../utils/prompts";
 import { analyzeGitHubProfileViaAPI } from "../utils/github";
 import { cleanMarkdown } from "../utils/markdown";
@@ -268,13 +269,13 @@ const analyzeGithubProfile = async (c: Context) => {
 
 const redesign = async (c: Context) => {
   try {
-    const { field,value } = await c.req.json();
+    const { field, value } = await c.req.json();
 
     if (!field || !value) {
       return c.json({ error: "Missing required fields." }, 400);
     }
 
-    const prompt = rewriteprompt({ field,value });
+    const prompt = rewriteprompt({ field, value });
 
     const rewritten = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
 
@@ -295,6 +296,51 @@ const redesign = async (c: Context) => {
   }
 };
 
+const detectSpam = async(c:Context) => {
+  try {
+    const { fields, formType } = await c.req.json();
+
+    if (!fields || !formType) {
+      return c.json({ error: "Missing required fields." }, 400);
+    }
+
+    const prompt = detectSpamPrompt({ fields, formType });
+
+    const response = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    return c.json({
+      success: true,
+      response,
+    });
+  } catch (error) {
+    console.error("Spam detection error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to detect spammy stuff",
+        details: String(error),
+      },
+      500
+    );
+  }
+}
+
+
+const eventLog = async (c:Context) => {
+  try {
+    
+  } catch (error) {
+    console.error("logging error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to log events",
+        details: String(error),
+      },
+      500
+    );
+  }
+}
 export {
   analyzeProposal,
   recommendVote,
@@ -302,6 +348,8 @@ export {
   recommendGigMatch,
   analyzeGithubProfile,
   redesign,
+  detectSpam,
+  eventLog
 };
 // processProposal
 // summarizeProposal

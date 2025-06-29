@@ -76,3 +76,12 @@ export const scoreProfile = ({
 
 export const rewriteprompt = ({ field, value }:any) => 
   `Rewrite this ${field} to make it clearer, more compelling, and professional:\n\n${value}\n\nReturn only the rewritten ${field}.Format your response as plain text with no markdown, no bullet points, no numbered lists, and no special formatting characters.Use only regular sentences and paragraphs.`;
+
+export const detectSpamPrompt = ({ fields, formType }: any) => `
+You are a strict DAO moderation agent. Analyze the following submission to the DAO's ${formType} form. Your goal is to detect spam, low-effort, or irrelevant content.Spam includes: vague buzzwords, unrealistic goals, gibberish, repeated templates, scam-like language, off-topic content, or AI-generated filler.
+Based on the provided fields:
+${JSON.stringify(fields)}
+Respond ONLY with one word: "spam" or "not spam".
+Classify as spam only if the submission lacks concrete goals, roadmap, or contains generic filler text not grounded in the DAO’s mission.
+Use plain text with no formatting or special characters.
+`;
