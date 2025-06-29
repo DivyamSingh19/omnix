@@ -1,0 +1,8 @@
+| File / Folder               | Purpose                                                      |
+| --------------------------- | ------------------------------------------------------------ |
+| `OmnixDAO.sol`              | Core contract that manages proposals, voting, and execution  |
+| `AgentRegistry.sol`         | Maps a user to an agent wallet (if they delegate)            |
+| `GovernanceToken.sol`       | ERC20 or ERC721 used to determine vote power (if applicable) |
+| `interfaces/`               | Keeps contracts clean and extensible                         |
+| `libraries/ProposalLib.sol` | For structuring, decoding, validating proposals              |
+| `modifiers/OnlyAgent.sol`   | Ensures only authorized agents can vote on behalf            |
