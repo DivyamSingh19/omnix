@@ -5,6 +5,7 @@ import {
   recommendGrant,
   recommendGigMatch,
   analyzeGithubProfile,
+  redesign
 } from "../controllers/agent";
 
 const agent = new Hono();
@@ -14,6 +15,6 @@ agent.post("/recommend-vote", recommendVote);
 agent.post("/recommend-grant", recommendGrant);
 agent.post("/recommend-gig-match", recommendGigMatch);
 agent.post("/analyze-github", analyzeGithubProfile);
-
+agent.post("/rewrite-with-ai", redesign);
 
 export default agent;

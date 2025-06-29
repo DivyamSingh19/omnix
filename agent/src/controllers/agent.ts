@@ -6,6 +6,7 @@ import {
   gigMatchPrompt,
   analyzeProposalPrompt,
   scoreProfile,
+  rewriteprompt,
 } from "../utils/prompts";
 import { analyzeGitHubProfileViaAPI } from "../utils/github";
 import { cleanMarkdown } from "../utils/markdown";
@@ -265,12 +266,42 @@ const analyzeGithubProfile = async (c: Context) => {
   }
 };
 
+const redesign = async (c: Context) => {
+  try {
+    const { field,value } = await c.req.json();
+
+    if (!field || !value) {
+      return c.json({ error: "Missing required fields." }, 400);
+    }
+
+    const prompt = rewriteprompt({ field,value });
+
+    const rewritten = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    return c.json({
+      success: true,
+      rewritten,
+    });
+  } catch (error) {
+    console.error("redesign error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to rewrite with ai",
+        details: String(error),
+      },
+      500
+    );
+  }
+};
+
 export {
   analyzeProposal,
   recommendVote,
   recommendGrant,
   recommendGigMatch,
   analyzeGithubProfile,
+  redesign,
 };
 // processProposal
 // summarizeProposal
