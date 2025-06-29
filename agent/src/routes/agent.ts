@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import {
-  processProposal,
-  summarizeProposal,
+  analyzeProposal,
   recommendVote,
   recommendGrant,
   recommendGigMatch,
@@ -10,8 +9,7 @@ import {
 
 const agent = new Hono();
 
-agent.post("/process-proposal", processProposal);
-agent.post("/summarize-proposal", summarizeProposal);
+agent.post("/analyze-proposal", analyzeProposal);
 agent.post("/recommend-vote", recommendVote);
 agent.post("/recommend-grant", recommendGrant);
 agent.post("/recommend-gig-match", recommendGigMatch);
