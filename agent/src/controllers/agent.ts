@@ -1,67 +1,41 @@
 import { Context } from "hono";
 import { getGeminiResponse } from "../utils/gemini";
 import {
-  processProposalPrompt,
   votePrompt,
   grantPrompt,
   gigMatchPrompt,
-  summarizePrompt,
+  analyzeProposalPrompt,
   scoreProfile,
+  rewriteprompt,
+  detectSpamPrompt,
 } from "../utils/prompts";
 import { analyzeGitHubProfileViaAPI } from "../utils/github";
 import { cleanMarkdown } from "../utils/markdown";
 
-const processProposal = async (c: Context) => {
-  try {
-    const { title, description, id } = await c.req.json();
-
-    if (!title || !description || !id) {
-      return c.json({ error: "Missing required fields." }, 400);
-    }
-
-    const prompt = processProposalPrompt({ title, description });
-
-    const aiResponse = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
-
-    return c.json({
-      success: true,
-      aiResponse,
-    });
-  } catch (error) {
-    console.error("processProposal error:", error);
-    return c.json(
-      {
-        success: false,
-        error: "Failed to process proposal",
-        details: String(error),
-      },
-      500
-    );
-  }
-};
-
-const summarizeProposal = async (c: Context) => {
+const analyzeProposal = async (c: Context) => {
   try {
     const { title, description } = await c.req.json();
 
     if (!title || !description) {
-      return c.json({ error: "Missing required fields" }, 400);
+      return c.json({ error: "Missing required fields." }, 400);
     }
 
-    const prompt = summarizePrompt({ title, description });
+    const prompt = analyzeProposalPrompt({ title, description });
 
-    const summary = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+    const analysis = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    const cleanAnalysis = cleanMarkdown(analysis);
 
     return c.json({
       success: true,
-      summary,
+      analysis: cleanAnalysis,
     });
   } catch (error) {
-    console.error("summarizeProposal error:", error);
+    console.error("analyzeProposal error:", error);
     return c.json(
       {
         success: false,
-        error: "Failed to summarize proposal",
+        error: "Failed to analyze proposal",
         details: String(error),
       },
       500
@@ -73,19 +47,24 @@ const recommendVote = async (c: Context) => {
   try {
     const { title, description, goal, amount } = await c.req.json();
 
-    if (!goal || !amount || !title || !description) {
+    if (!title || !description || !goal || !amount) {
       return c.json({ error: "Missing required fields" }, 400);
     }
+
     const prompt = votePrompt({ goal, amount, title, description });
 
-    const recommendation = await getGeminiResponse(
-      prompt,
-      c.env.GEMINI_API_KEY
-    );
+    const rawResponse = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    const voteMatch = rawResponse.match(/vote:\s*(yes|no)/i);
+    const reasonMatch = rawResponse.match(/reason:\s*(.+)/i);
+
+    const vote = voteMatch ? voteMatch[1].toLowerCase() : "undecided";
+    const reason = reasonMatch ? reasonMatch[1].trim() : "No reason provided";
 
     return c.json({
       success: true,
-      vote: recommendation.trim().toLowerCase(),
+      vote,
+      reason,
     });
   } catch (error) {
     console.error("recommendVote error:", error);
@@ -102,16 +81,19 @@ const recommendVote = async (c: Context) => {
 
 const recommendGrant = async (c: Context) => {
   try {
-    const { goal, amount, title, description } = await c.req.json();
+    const { goal, amount, title, description, scorepfp } = await c.req.json();
 
-    if (!goal || !amount || !title || !description) {
+    if (!goal || !amount || !title || !description || scorepfp === undefined) {
       return c.json({ error: "Missing required fields" }, 400);
     }
-    const prompt = grantPrompt({ goal, amount, title, description });
+
+    const prompt = grantPrompt({ goal, amount, title, description, scorepfp });
 
     const decision = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
 
-    return c.json({ success: true, grantDecision: decision });
+    const cleanedDecision = cleanMarkdown(decision);
+
+    return c.json({ success: true, grantDecision: cleanedDecision });
   } catch (error) {
     console.error("recommendGrant error:", error);
     return c.json(
@@ -206,13 +188,13 @@ const analyzeGithubProfile = async (c: Context) => {
       username: profile.username,
       contributionsByYear: profile.contributionBreakdownByYear,
     });
-       
+
     return c.json({
       success: true,
       username: cleanUsername,
       contentLength: contentString.length,
       profile,
-      scorepfp, 
+      scorepfp,
     });
   } catch (error: any) {
     console.error("GitHub profile analysis failed:", {
@@ -285,13 +267,89 @@ const analyzeGithubProfile = async (c: Context) => {
   }
 };
 
+const redesign = async (c: Context) => {
+  try {
+    const { field, value } = await c.req.json();
+
+    if (!field || !value) {
+      return c.json({ error: "Missing required fields." }, 400);
+    }
+
+    const prompt = rewriteprompt({ field, value });
+
+    const rewritten = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    return c.json({
+      success: true,
+      rewritten,
+    });
+  } catch (error) {
+    console.error("redesign error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to rewrite with ai",
+        details: String(error),
+      },
+      500
+    );
+  }
+};
+
+const detectSpam = async(c:Context) => {
+  try {
+    const { fields, formType } = await c.req.json();
+
+    if (!fields || !formType) {
+      return c.json({ error: "Missing required fields." }, 400);
+    }
+
+    const prompt = detectSpamPrompt({ fields, formType });
+
+    const response = await getGeminiResponse(prompt, c.env.GEMINI_API_KEY);
+
+    return c.json({
+      success: true,
+      response,
+    });
+  } catch (error) {
+    console.error("Spam detection error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to detect spammy stuff",
+        details: String(error),
+      },
+      500
+    );
+  }
+}
+
+
+const eventLog = async (c:Context) => {
+  try {
+    
+  } catch (error) {
+    console.error("logging error:", error);
+    return c.json(
+      {
+        success: false,
+        error: "Failed to log events",
+        details: String(error),
+      },
+      500
+    );
+  }
+}
 export {
-  processProposal,
-  summarizeProposal,
+  analyzeProposal,
   recommendVote,
   recommendGrant,
   recommendGigMatch,
   analyzeGithubProfile,
+  redesign,
+  detectSpam,
+  eventLog
 };
 // processProposal
 // summarizeProposal
