@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "agent",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
@@ -7,13 +7,8 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@prisma/client": "^6.10.1",
-    "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.2",
-    "cookie": "^1.0.2",
-    "dotenv": "^16.5.0",
-    "hono": "^4.8.3",
-    "prisma": "^6.10.1"
+    "axios": "^1.10.0",
+    "hono": "^4.8.3"
   },
   "devDependencies": {
     "wrangler": "^4.4.0"

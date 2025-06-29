@@ -127,6 +127,46 @@ exports.Prisma.UserScalarFieldEnum = {
   phantom_wallet: 'phantom_wallet'
 };
 
+exports.Prisma.ProposalScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  aiSummary: 'aiSummary',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VoteScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  voterAddress: 'voterAddress',
+  voteChoice: 'voteChoice',
+  txHash: 'txHash'
+};
+
+exports.Prisma.GrantScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  applicant: 'applicant',
+  goal: 'goal',
+  amount: 'amount',
+  score: 'score',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GigScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  bounty: 'bounty',
+  status: 'status',
+  matchedAgent: 'matchedAgent',
+  postedBy: 'postedBy',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -137,9 +177,18 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Proposal: 'Proposal',
+  Vote: 'Vote',
+  Grant: 'Grant',
+  Gig: 'Gig'
 };
 
 /**
