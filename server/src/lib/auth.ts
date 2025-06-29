@@ -1,5 +1,5 @@
 //jwt helpers
-import jwt from  "jsonwebtoken"
+import  jwt  from "jsonwebtoken"
 const secret = process.env.JWT_SECRET as string
 
 export function signJWT(payload:object){
