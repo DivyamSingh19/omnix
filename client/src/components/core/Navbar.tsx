@@ -31,7 +31,7 @@ export default function Navbar() {
 
   const handleNavItemClick = (itemName: React.SetStateAction<string>) => {
     setActiveItem(itemName);
-    setIsMobileMenuOpen(false); // Close mobile menu when item is clicked
+    setIsMobileMenuOpen(false); 
   };
 
   return (
