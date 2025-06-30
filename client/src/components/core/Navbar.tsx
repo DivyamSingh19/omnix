@@ -19,10 +19,10 @@ export default function Navbar() {
   const handleYTClick = () => {};
   
   const navItems = [
-    { name: "PROTOCOL", href: "#protocol" },
-    { name: "DAO", href: "#dao" },
-    { name: "ASSOCIATION", href: "#association" },
-    { name: "DEXE TOKEN", href: "#token" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Features", href: "#features" },
+    { name: "About us", href: "#about" },
+     
   ];
 
   const toggleMobileMenu = () => {
