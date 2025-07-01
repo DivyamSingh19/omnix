@@ -1,11 +1,9 @@
- 
-import Sidebar from '@/components/custom/SampleSidebar'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Sidebar/>
+      
     </div>
   )
 }
