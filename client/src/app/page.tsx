@@ -1,14 +1,15 @@
  
-import Landing from '@/components/core/Landing'
-import Navbar from '@/components/core/Navbar'
- 
+// import Navbar from '@/components/core/Navbar'
+// import Footer from '@/components/core/Footer'
+import AdminDashboard from '@/components/core/AdminDashboard'
+// import UserDashboard from '@/components/core/UserDashboard'
 import React from 'react'
  
  const page = () => {
    return (
      <div>
        <Navbar/>
-       <Landing/>
+       {/* <Footer/> */}
      </div>
    )
  }
