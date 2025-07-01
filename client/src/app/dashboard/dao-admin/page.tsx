@@ -1,11 +1,11 @@
  
-import Sidebar from '@/components/custom/SampleSidebar'
+import { AppSidebar } from '@/components/sidebar/DaoAdminSidebar'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Sidebar/>
+      <AppSidebar/>
     </div>
   )
 }
