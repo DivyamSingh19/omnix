@@ -9,8 +9,7 @@ import React from 'react'
    return (
      <div>
       <Login/>
-       {/* <Navbar/> */}
-       {/* <Footer/> */}
+       
      </div>
    )
  }

@@ -133,9 +133,9 @@ export default function Login() {
               Google
             </Button>
 
-            {/* Sign Up */}
+          
             <p className="mt-6 text-sm text-center text-gray-400">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <a href="#" className="text-white underline hover:text-gray-300">
                 Sign up
               </a>
