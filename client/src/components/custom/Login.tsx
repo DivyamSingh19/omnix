@@ -30,7 +30,7 @@ export default function Login() {
           <h1
             className={`text-2xl md:text-4xl font-semibold ${aboreto.className}`}
           >
-            LET'S GET YOU BACK <p>ON-CHAIN</p>
+            LET&apos;S GET YOU BACK <p>ON-CHAIN</p>
           </h1>
 
           <div className="relative w-100 h-[2px] bg-white/50 rounded-full overflow-visible my-6 mx-auto">
