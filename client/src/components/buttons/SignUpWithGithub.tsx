@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LoginWithGithub = () => {
+const SignUpWithGithub = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const LoginWithGithub = () => {
   )
 }
 
-export default LoginWithGithub
+export default SignUpWithGithub
